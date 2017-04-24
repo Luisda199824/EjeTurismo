@@ -23,11 +23,17 @@
       <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'ico/apple-touch-icon-114-precomposed.png' %}">
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'ico/apple-touch-icon-72-precomposed.png' %}">
       <link rel="apple-touch-icon-precomposed" href="{% static 'ico/apple-touch-icon-57-precomposed.png' %}">
-      
+
     </head>
 
     <body>
+        {% if error.0 %}
+          <div class="alert alert-danger">{{error.1}}</div>
+        {% endif %}
 
+        {% if exito.0 %}
+          <div class="alert alert-success">{{exito.1}}</div>
+        {% endif %}
         <!-- Top content -->
         <div class="top-content">
 
@@ -47,70 +53,97 @@
                         		<div class="form-top-right">
                         			<i class="fa fa-key"></i>
                         		</div>
-                            </div>
+                          </div>
+                          <div>
+                          <form method="post" enctype="multipart/form-data">{% csrf_token %}
                             <div class="form-bottom">
+                              <div>
                                 <P ALIGN=center>Nombre</P>
-                                <form role="form" action="" method="post" class="login-form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="form-user">Nombre</label>
-                                        <input type="text" name="form-user" placeholder="Ingrese su nombre" class="form-user form-control" id="form-user">
-                                    </div>
-                            <div class="form-bottom">
-                                <form role="form" action="" method="post" class="login-form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="form-lastname">Apellido</label>
-                                        <input type="text" name="form-lastname" placeholder="Ingrese su Apellido" class="form-lasname form-control" id="form-lastname">
-                                    </div>
-                            <div class="form-bottom">
-                                <form role="form" action="" method="post" class="login-form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="form-DNI">DNI</label>
-                                        <input type="text" name="form-DNI" placeholder="Ingrese su DNI" class="form-DNI form-control" id="form-DNI">
-                                    </div>
-                            <div class="form-bottom">
-                                <form role="form" action="" method="post" class="login-form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="form-address">Address</label>
-                                        <input type="text" name="form-address" placeholder="Ingrese su direccion" class="form-address form-control" id="form-address">
-                                    </div>
-                            <div class="form-bottom">
-                                <form role="form" action="" method="post" class="login-form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="form-phone">Telefono</label>
-                                        <input type="text" name="form-phone" placeholder="Ingrese su telefono" class="form-phone form-control" id="form-phone">
-                                    </div>
-                            <div class="form-bottom">
-                                <form role="form" action="" method="post" class="login-form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="form-country">Pais</label>
-                                        <input type="text" name="form-country" placeholder="Ingrese su pais" class="form-DNI form-control" id="form-DNI">
-                                    </div>
+                                <div class="form-group">
+                                    <input type="text" name="nombre" id="nombre" placeholder="Ingrese su nombre" class="form-user form-control">
+                                </div>
+                              </div>
 
-			                    <form role="form" action="" method="post" class="login-form">
-			                    	<div class="form-group">
-			                    		<label class="sr-only" for="form-username">Usuario</label>
-			                        	<input type="text" name="form-username" placeholder="Ingrese su nombre de usuario" class="form-username form-control" id="form-username">
-			                        </div>
-			                        <div class="form-group">
-			                        	<label class="sr-only" for="form-password">Contraseña</label>
-			                        	<input type="password" name="form-password" placeholder="Ingresa tu contraseña aquí" class="form-password form-control" id="form-password">
+                              <div>
+                                <P ALIGN=center>Apellidos</P>
+                                <div class="form-group">
+                                    <input type="text" name="apellido" id="apellido" placeholder="Ingrese sus apellidos" class="form-user form-control">
+                                </div>
+                              </div>
 
+                              <div>
+                                <P ALIGN=center>DNI</P>
+                                <div class="form-group">
+                                    <input type="text" name="dni" id="dni" placeholder="Ingrese su dni" class="form-user form-control">
+                                </div>
+                              </div>
 
-                    <div class="row">
+                              <div>
+                                <P ALIGN=center>Género</P>
+                                <div class="form-group">
+                                    <input type="text" name="genero" id="genero" placeholder="Ingrese su género (hombre, mujer)" class="form-user form-control">
+                                </div>
+                              </div>
 
-                            <div class="social-login-buttons">
-                                <a class="btn btn-link-1 btn-link-1-user" href="#">
-                                    <i class="fa fa-user"></i> Usuario
-                                </a>
-                                <a class="btn btn-link-1 btn-link-1-twitter" href="#">
-                                    <i class="fa fa-user"></i> Administrador
-                                </a>
+                              <div>
+                                <P ALIGN=center>Dirección</P>
+                                <div class="form-group">
+                                    <input type="text" name="direccion" id="direccion" placeholder="Ingrese su dirección" class="form-user form-control">
+                                </div>
+                              </div>
 
+                              <div>
+                                <P ALIGN=center>Teléfono</P>
+                                <div class="form-group">
+                                    <input type="text" name="telefono" id="telefono" placeholder="Ingrese su telefono" class="form-user form-control">
+                                </div>
+                              </div>
+
+                              <div>
+                                <P ALIGN=center>Email</P>
+                                <div class="form-group">
+                                    <input type="text" name="email" id="email" placeholder="Ingrese su correo electrónico" class="form-user form-control">
+                                </div>
+                              </div>
+
+                              <div>
+                                <P ALIGN=center>Ciudad</P>
+                                <div class="form-group">
+                                    <input type="text" name="ciudad" id="ciudad" placeholder="Ingrese su ciudad" class="form-user form-control">
+                                </div>
+                              </div>
+
+                              <div>
+                                <P ALIGN=center>País</P>
+                                <div class="form-group">
+                                    <input type="text" name="pais" id="pais" placeholder="Ingrese su país" class="form-user form-control">
+                                </div>
+                              </div>
+
+                              <div>
+                                <P ALIGN=center>Contraseña</P>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" placeholder="Ingrese su contraseña" class="form-user form-control">
+                                </div>
+                              </div>
+
+                              <div>
+                                <P ALIGN=center>Municipio</P>
+                                <div class="form-group">
+                                    <input type="text" name="municipio" id="municipio" placeholder="Ingrese el municipio (Usuario administrador)" class="form-user form-control">
+                                </div>
+                              </div>
                             </div>
-                        </div>
 
+                              <div class="row">
+                                <div class="social-login-buttons">
+                                  <button class="btn btn-link-1 btn-link-1-user" type="submit" name="btn_usuario"><i class="fa fa-user"></i> Usuario</button>
+                                  <button class="btn btn-link-1 btn-link-1-twitter" type="submit" name="btn_administrador"><i class="fa fa-user"></i> Administrador</button>
+                                </div>
+                              </div>
 
-			                    </form>
+                            </form>
+                          </div>
 		                    </div>
                         </div>
                     </div>

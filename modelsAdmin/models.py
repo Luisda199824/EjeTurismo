@@ -4,11 +4,11 @@ from django.db import models
 from datetime import datetime
 
 class Usuario(models.Model):
-    dni = models.CharField(max_length=8)
+    dni = models.CharField(max_length=20)
     nombre = models.CharField(max_length=255)
     apellido = models.CharField(max_length=255)
     direccion = models.CharField(max_length=255)
-    telefono = models.IntegerField()
+    telefono = models.CharField(max_length=100)
     ciudad = models.CharField(blank=True, max_length=255)
     email = models.CharField(blank=True, max_length=255)
     fecha_nacimiento = models.DateField(default=datetime.today)
