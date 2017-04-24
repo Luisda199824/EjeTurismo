@@ -1,10 +1,9 @@
-from django.db import models
 
 from django.contrib.auth.models import User
+from django.db import models
 from datetime import datetime
 
 class Usuario(models.Model):
-    # TODO: Define fields here
     dni = models.CharField(max_length=8)
     nombre = models.CharField(max_length=255)
     apellido = models.CharField(max_length=255)
