@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
 
 from modelsAdmin.models import Usuario, Administrador, Suscriptor
 
@@ -14,7 +15,11 @@ def iniciarSesion(request):
 
         user = authenticate(username=username, password=password)
         if user is None:
-            error = (True, "El usuario no fue encontrado")
+            if len(User.objects.filter(username=username)) == 0:
+                mensaje = "El usuario no fue encontrado"
+            else:
+                mensaje = "Contraseña incorrecta"
+            error = (True, mensaje)
         else:
             suscriptores = Suscriptor.objects.filter(usuario__usuario=user)
             administradores = Administrador.objects.filter(usuario__usuario=user)
