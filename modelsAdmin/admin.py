@@ -17,3 +17,11 @@ class SuscriptorAdmin(admin.ModelAdmin):
 @admin.register(Root)
 class RootAdmin(admin.ModelAdmin):
     list_display = ['usuario']
+
+@admin.register(ListaSolicitudesAdministrador)
+class ListaSolicitudesAdministradorAdmin(admin.ModelAdmin):
+    list_display = ['administrador', 'evaluada']
+
+@admin.register(ListaSolicitudesSuscriptor)
+class ListaSolicitudesSuscriptorAdmin(admin.ModelAdmin):
+    list_display = ['suscriptor', 'evaluada']

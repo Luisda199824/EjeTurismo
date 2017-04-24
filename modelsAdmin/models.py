@@ -64,6 +64,7 @@ class Suscriptor(models.Model):
 class ListaSolicitudesAdministrador(models.Model):
     administrador = models.ForeignKey(Administrador)
     evaluada = models.BooleanField(default=False)
+    suscriptor = models.ForeignKey(Suscriptor)
 
     class Meta:
         verbose_name = 'Lista de solicitudes del Administrador'

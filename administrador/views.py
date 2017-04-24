@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 
-from modelsAdmin.models import Usuario, Administrador, Suscriptor
+from modelsAdmin.models import Usuario, Administrador, Suscriptor, ListaSolicitudesSuscriptor
 
 def indexAdmin(request):
     try:
@@ -108,5 +108,65 @@ def modificarPerfilAdmin(request):
         "pais": pais,
         "password": password,
         "municipio": municipio,
+    }
+    return HttpResponse(template.render(ctx, request))
+
+def solicitudesAdmin(request):
+    if not request.user.is_authenticated():
+        logout(request)
+        return redirect('/')
+
+    administrador = Administrador.objects.filter(usuario__usuario=request.user)[0]
+    template = loader.get_template('administrador/solicitudes.html')
+    solicitudes = ListaSolicitudesSuscriptor.objects.filter(suscriptor__administrador=administrador)
+    print(solicitudes)
+    ctx = {
+        'solicitudes': solicitudes
+    }
+    return HttpResponse(template.render(ctx, request))
+    return HttpResponse(template.render(ctx, request))
+
+def applySolicitudAdmin(request, id_solicitud):
+    if not request.user.is_authenticated():
+        logout(request)
+        return redirect('/')
+
+    administrador = Administrador.objects.filter(usuario__usuario=request.user)[0]
+    solicitud = ListaSolicitudesSuscriptor.objects.filter(id=id_solicitud)
+    if len(solicitud) == 0:
+        mensaje = "No se encontró la solicitud"
+    else:
+        solicitud = solicitud[0]
+        solicitud.evaluada = True
+        solicitud.suscriptor.estadoCuenta = True
+        solicitud.suscriptor.save()
+        solicitud.save()
+        mensaje = "Habilitado correctamente"
+    template = loader.get_template('administrador/apply.html')
+    ctx = {
+        'mensaje': mensaje,
+    }
+    return HttpResponse(template.render(ctx, request))
+    return HttpResponse(template.render(ctx, request))
+
+def removeSolicitudAdmin(request, id_solicitud):
+    if not request.user.is_authenticated():
+        logout(request)
+        return redirect('/')
+
+    administrador = Administrador.objects.filter(usuario__usuario=request.user)[0]
+    solicitud = ListaSolicitudesSuscriptor.objects.filter(id=id_solicitud)
+    if len(solicitud) == 0:
+        mensaje = "No se encontró la solicitud"
+    else:
+        solicitud = solicitud[0]
+        solicitud.evaluada = False
+        solicitud.suscriptor.estadoCuenta = False
+        solicitud.suscriptor.save()
+        solicitud.save()
+        mensaje = "Deshabilitado correctamente"
+    template = loader.get_template('administrador/apply.html')
+    ctx = {
+        'mensaje': mensaje,
     }
     return HttpResponse(template.render(ctx, request))
