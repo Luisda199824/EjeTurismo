@@ -13,3 +13,7 @@ class AdministradorAdmin(admin.ModelAdmin):
 @admin.register(Suscriptor)
 class SuscriptorAdmin(admin.ModelAdmin):
     list_display = ['administrador','estadoCuenta','usuario']
+
+@admin.register(Root)
+class RootAdmin(admin.ModelAdmin):
+    list_display = ['usuario']

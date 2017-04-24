@@ -22,7 +22,7 @@ def iniciarSesionRoot(request):
                 error = (True, "No hay cuenta asociada")
             else:
                 login(request, user)
-                return redirect('/administrator')
+                return redirect('/root')
 
     template = loader.get_template('iniciarSesionRoot/index.html')
     ctx = {
