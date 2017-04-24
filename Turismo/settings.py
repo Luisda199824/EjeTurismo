@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'iniciarSesionRoot',
     'modelsAdmin',
     'registroUsuarios',
+    'suscriptor',
 ]
 
 MIDDLEWARE = [

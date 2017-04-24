@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^', include('iniciarSesion.urls', namespace="Iniciar sesion")),
     url(r'^', include('iniciarSesionRoot.urls', namespace="Iniciar sesion Root")),
     url(r'^', include('registroUsuarios.urls', namespace="Registro Usuario")),
+    url(r'^', include('suscriptor.urls', namespace="Usuario Suscriptor")),
 ]
