@@ -20,20 +20,24 @@ def iniciarSesion(request):
             administradores = Administrador.objects.filter(usuario__usuario=user)
 
             if "btn_usuario" in request.POST:
-                print("1")
                 if len(suscriptores) == 0:
                     error = (True, "No hay cuenta asociada")
                 else:
-                    login(request, user)
-                    return redirect('/user')
+                    if suscriptores[0].estadoCuenta:
+                        login(request, user)
+                        return redirect('/user')
+                    else:
+                        error = (True, "Su cuenta no ha sido activada")
 
             if "btn_administrador" in request.POST:
-                print("2")
                 if len(administradores) == 0:
                     error = (True, "No hay cuenta asociada")
                 else:
-                    login(request, user)
-                    return redirect('/administrator')
+                    if administradores[0].estadoCuenta:
+                        login(request, user)
+                        return redirect('/administrator')
+                    else:
+                        error = (True, "Su cuenta no ha sido activada")
 
     template = loader.get_template('iniciarSesion/index.html')
     ctx = {
