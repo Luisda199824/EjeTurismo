@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import login, authenticate, logout
 
-from modelsAdmin.models import Usuario, Administrador, Suscriptor, ListaSolicitudesSuscriptor, ListaSolicitudesAdministrador
+from modelsAdmin.models import Usuario, Administrador, Suscriptor, ListaSolicitudesSuscriptor, ListaSolicitudesAdministrador, Root
 from django.contrib.auth.models import User
 
 def registerUsuario(request):
@@ -75,13 +75,13 @@ def registerUsuario(request):
                     if "btn_usuario" in form:
                         suscrito = Suscriptor(administrador=administrador, usuario=usuario, estadoCuenta=False)
                         suscrito.save()
-                        solicitud = ListaSolicitudesSuscriptor(suscriptor=suscriptor, evaluada=False)
+                        solicitud = ListaSolicitudesSuscriptor(suscriptor=suscrito, evaluada=False)
                         solicitud.save()
                         exito = (True, "Usuario suscriptor creado, solicitud enviada")
                     elif "btn_administrador" in form:
-                        admin = Administrador(usuario=usuario, estadoCuenta=False, municipio=municipio)
+                        admin = Administrador(usuario=usuario, estadoCuenta=False, municipio=municipio, root=Root.objects.all()[0])
                         admin.save()
-                        solicitud = ListaSolicitudesAdministrador(suscriptor=suscriptor, evaluada=False)
+                        solicitud = ListaSolicitudesAdministrador(administrador=admin, evaluada=False)
                         solicitud.save()
                         exito = (True, "Usuario administrador creado, solicitud enviada")
 

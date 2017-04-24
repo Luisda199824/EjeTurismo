@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^', include('registroUsuarios.urls', namespace="Registro Usuario")),
     url(r'^suscriptor/', include('suscriptor.urls', namespace="Usuario Suscriptor")),
     url(r'^administrador/', include('administrador.urls', namespace="Usuario Administrador")),
+    url(r'^root/', include('root.urls', namespace="Usuario Root")),
 ]

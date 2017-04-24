@@ -38,6 +38,7 @@ class Root(models.Model):
         return self.nombre + " " + self.apellido
 
 class Administrador(models.Model):
+    root = models.ForeignKey(Root)
     usuario = models.ForeignKey(Usuario)
     estadoCuenta = models.BooleanField(default=True)
     municipio = models.CharField(max_length=255)

@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'iniciarSesionRoot',
     'modelsAdmin',
     'registroUsuarios',
+    'root',
     'suscriptor',
 ]
 
