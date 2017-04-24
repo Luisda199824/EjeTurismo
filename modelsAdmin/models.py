@@ -26,6 +26,17 @@ class Usuario(models.Model):
     def __unicode__(self):
         return self.nombre + " " + self.apellido
 
+class Root(models.Model):
+    usuario = models.ForeignKey(Usuario)
+
+    class Meta:
+        verbose_name = 'Usuario Root'
+        verbose_name_plural = 'Usuarios Root'
+
+    def __unicode__(self):
+        return str(self.usuario)
+        return self.nombre + " " + self.apellido
+
 class Administrador(models.Model):
     usuario = models.ForeignKey(Usuario)
     estadoCuenta = models.BooleanField(default=True)
