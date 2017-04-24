@@ -40,7 +40,7 @@ def iniciarSesion(request):
                 else:
                     if administradores[0].estadoCuenta:
                         login(request, user)
-                        return redirect('/administrator')
+                        return redirect('/administrador')
                     else:
                         error = (True, "Su cuenta no ha sido activada")
 

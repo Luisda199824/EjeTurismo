@@ -4,4 +4,5 @@ from .views import *
 
 urlpatterns = [
     url(r'^$', indexAdmin),
+    url(r'^modificar/perfil/$', modificarPerfilAdmin),
 ]
