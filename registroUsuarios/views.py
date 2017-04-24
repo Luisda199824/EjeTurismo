@@ -53,6 +53,7 @@ def registerUsuario(request):
                 else:
                     user = User(username=email, password=password)
                     user.save()
+                    print(password, user.password)
 
                     from datetime import datetime
 

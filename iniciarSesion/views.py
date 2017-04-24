@@ -13,36 +13,39 @@ def iniciarSesion(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        user = authenticate(username=username, password=password)
-        if user is None:
-            if len(User.objects.filter(username=username)) == 0:
-                mensaje = "El usuario no fue encontrado"
-            else:
-                mensaje = "Contraseña incorrecta"
+
+        usuario = User.objects.filter(username=username)
+        if len(usuario) == 0:
+            mensaje = "El usuario no fue encontrado"
             error = (True, mensaje)
         else:
-            suscriptores = Suscriptor.objects.filter(usuario__usuario=user)
-            administradores = Administrador.objects.filter(usuario__usuario=user)
+            usuario = usuario[0]
+            if usuario.password == password:
+                suscriptores = Suscriptor.objects.filter(usuario__usuario=usuario)
+                administradores = Administrador.objects.filter(usuario__usuario=usuario)
 
-            if "btn_usuario" in request.POST:
-                if len(suscriptores) == 0:
-                    error = (True, "No hay cuenta asociada")
-                else:
-                    if suscriptores[0].estadoCuenta:
-                        login(request, user)
-                        return redirect('/suscriptor')
+                if "btn_usuario" in request.POST:
+                    if len(suscriptores) == 0:
+                        error = (True, "No hay cuenta asociada")
                     else:
-                        error = (True, "Su cuenta no ha sido activada")
+                        if suscriptores[0].estadoCuenta:
+                            login(request, usuario)
+                            return redirect('/suscriptor')
+                        else:
+                            error = (True, "Su cuenta no ha sido activada")
 
-            if "btn_administrador" in request.POST:
-                if len(administradores) == 0:
-                    error = (True, "No hay cuenta asociada")
-                else:
-                    if administradores[0].estadoCuenta:
-                        login(request, user)
-                        return redirect('/administrador')
+                if "btn_administrador" in request.POST:
+                    if len(administradores) == 0:
+                        error = (True, "No hay cuenta asociada")
                     else:
-                        error = (True, "Su cuenta no ha sido activada")
+                        if administradores[0].estadoCuenta:
+                            login(request, usuario)
+                            return redirect('/administrador')
+                        else:
+                            error = (True, "Su cuenta no ha sido activada")
+            else:
+                mensaje = "Contraseña incorrecta"
+                error = (True, mensaje)
 
     template = loader.get_template('iniciarSesion/index.html')
     ctx = {
