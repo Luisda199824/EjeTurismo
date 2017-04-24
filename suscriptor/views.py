@@ -8,9 +8,8 @@ from django.contrib.auth.models import User
 from modelsAdmin.models import Suscriptor
 
 def indexSuscriptor(request):
-    if request.user is None and not request.user.is_authenticated():
+    if not request.user.is_authenticated():
         logout(request)
-        print("Redir")
         return redirect('/')
 
     usuario = Suscriptor.objects.filter(usuario__usuario=request.user)[0]
