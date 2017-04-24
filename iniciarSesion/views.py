@@ -30,7 +30,7 @@ def iniciarSesion(request):
                 else:
                     if suscriptores[0].estadoCuenta:
                         login(request, user)
-                        return redirect('/user')
+                        return redirect('/suscriptor')
                     else:
                         error = (True, "Su cuenta no ha sido activada")
 
