@@ -38,7 +38,9 @@ def registerUsuario(request):
         if (len_nombre*len_apellido*len_dni*len_direccion*len_telefono*len_email*len_ciudad*len_genero*len_pais*len_password) == 0:
             error = (True, "Debe ingresar todos los campos")
         else:
-            if "btn_administrador" in form and (len(municipio) == 0):
+            if len(password) <= 8:
+                error = (True, "La contraseña debe contener más de 8 digitos")
+            elif "btn_administrador" in form and (len(municipio) == 0):
                 error = (True, "Seleccione un municipio")
             else:
                 administrador = Administrador.objects.all()

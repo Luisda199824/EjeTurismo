@@ -60,77 +60,81 @@
                               <div>
                                 <P ALIGN=center>Nombre</P>
                                 <div class="form-group">
-                                    <input type="text" name="nombre" id="nombre" placeholder="Ingrese su nombre" class="form-user form-control">
+                                    <input type="text" name="nombre" id="nombre" placeholder="Ingrese su nombre" class="form-user form-control" required>
                                 </div>
                               </div>
 
                               <div>
                                 <P ALIGN=center>Apellidos</P>
                                 <div class="form-group">
-                                    <input type="text" name="apellido" id="apellido" placeholder="Ingrese sus apellidos" class="form-user form-control">
+                                    <input type="text" name="apellido" id="apellido" placeholder="Ingrese sus apellidos" class="form-user form-control" required>
                                 </div>
                               </div>
 
                               <div>
                                 <P ALIGN=center>DNI</P>
                                 <div class="form-group">
-                                    <input type="text" name="dni" id="dni" placeholder="Ingrese su dni" class="form-user form-control">
+                                    <input type="text" name="dni" id="dni" placeholder="Ingrese su dni" class="form-user form-control" required>
                                 </div>
                               </div>
 
                               <div>
                                 <P ALIGN=center>Género</P>
                                 <div class="form-group">
-                                    <input type="text" name="genero" id="genero" placeholder="Ingrese su género (hombre, mujer)" class="form-user form-control">
+                                    <select name="genero" required>
+                                      <option value="mujer">Mujer</option>
+                                      <option value="hombre">Hombre</option>
+                                      <option value="otro">Otro</option>
+                                    </select>
                                 </div>
                               </div>
 
                               <div>
                                 <P ALIGN=center>Dirección</P>
                                 <div class="form-group">
-                                    <input type="text" name="direccion" id="direccion" placeholder="Ingrese su dirección" class="form-user form-control">
+                                    <input type="text" name="direccion" id="direccion" placeholder="Ingrese su dirección" class="form-user form-control" required>
                                 </div>
                               </div>
 
                               <div>
                                 <P ALIGN=center>Teléfono</P>
                                 <div class="form-group">
-                                    <input type="text" name="telefono" id="telefono" placeholder="Ingrese su telefono" class="form-user form-control">
+                                    <input type="number" min="1" max="99999999999999" name="telefono" id="telefono" placeholder="Ingrese su telefono" class="form-user form-control" required>
                                 </div>
                               </div>
 
                               <div>
                                 <P ALIGN=center>Email</P>
                                 <div class="form-group">
-                                    <input type="text" name="email" id="email" placeholder="Ingrese su correo electrónico" class="form-user form-control">
+                                    <input type="email" name="email" id="email" placeholder="Ingrese su correo electrónico" class="form-user form-control" required>
                                 </div>
                               </div>
 
                               <div>
                                 <P ALIGN=center>Ciudad</P>
                                 <div class="form-group">
-                                    <input type="text" name="ciudad" id="ciudad" placeholder="Ingrese su ciudad" class="form-user form-control">
+                                    <input type="text" name="ciudad" id="ciudad" placeholder="Ingrese su ciudad" class="form-user form-control" required>
                                 </div>
                               </div>
 
                               <div>
                                 <P ALIGN=center>País</P>
                                 <div class="form-group">
-                                    <input type="text" name="pais" id="pais" placeholder="Ingrese su país" class="form-user form-control">
+                                    <input type="text" name="pais" id="pais" placeholder="Ingrese su país" class="form-user form-control" required>
                                 </div>
                               </div>
 
                               <div>
                                 <P ALIGN=center>Contraseña</P>
+                                <input type="password" name="password" id="password" placeholder="Ingrese su contraseña" class="form-user form-control" minlenght=8 required>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" placeholder="Ingrese su contraseña" class="form-user form-control">
                                 </div>
                               </div>
 
                               <div>
                                 <P ALIGN=center>Municipio</P>
                                 <div class="form-group">
-                                    <input type="text" name="municipio" id="municipio" placeholder="Ingrese el municipio (Usuario administrador)" class="form-user form-control">
+                                    <input type="text" name="municipio" id="municipio" placeholder="Ingrese el municipio (Usuario administrador)" class="form-user form-control" required>
                                 </div>
                               </div>
                             </div>
