@@ -12,7 +12,6 @@ def iniciarSesionRoot(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-
         user = authenticate(username=username, password=password)
         if user is None:
             if len(User.objects.filter(username=username)) == 0:

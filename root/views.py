@@ -32,73 +32,33 @@ def modificarPerfilRoot(request):
     exito = (False, "")
     if request.method == "POST":
         form = request.POST
-        nombre = form.get("nombre")
-        apellido = form.get("apellido")
-        dni = form.get("dni")
-        direccion = form.get("direccion")
-        telefono = form.get("telefono")
-        email = form.get("email")
-        ciudad = form.get("ciudad")
-        genero = form.get("genero")
-        pais = form.get("pais")
+        old_password = form.get("old_password")
+        new_password = form.get("new_password")
+        new_password_2 = form.get("new_password_2")
 
-        len_nombre = len(nombre)
-        len_apellido = len(apellido)
-        len_dni = len(dni)
-        len_direccion = len(direccion)
-        len_telefono = len(telefono)
-        len_email = len(email)
-        len_ciudad = len(ciudad)
-        len_genero = len(genero)
-        len_pais = len(pais)
+        len_old_password = len(old_password)
+        len_new_password = len(new_password)
+        len_new_password_2 = len(new_password_2)
 
-        if (len_nombre*len_apellido*len_dni*len_direccion*len_telefono*len_email*len_ciudad*len_genero*len_pais) == 0:
+        if (len_old_password*len_new_password*len_new_password_2) == 0:
             error = (True, "Debe ingresar todos los campos")
         else:
             administrador = Root.objects.filter(usuario__usuario=request.user)[0]
+            user = authenticate(username=request.user.username, password=old_password)
+            if user is not None:
+                if new_password == new_password_2:
+                    request.user.set_password(new_password)
+                    request.user.save()
+                    return redirect('/root?e=mi')
+                else:
+                    error = (True, "La contraseñas no coinciden")
+            else:
+                error = (True, "La contraseña no es correcta")
 
-            from datetime import datetime
-
-            usuario = administrador.usuario
-            usuario.dni=dni
-            usuario.nombre=nombre
-            usuario.apellido=apellido
-            usuario.direccion=direccion
-            usuario.telefono=telefono
-            usuario.ciudad=ciudad
-            usuario.email=email
-            usuario.genero=genero
-            usuario.pais=pais
-            usuario.fecha_nacimiento=datetime.now()
-            usuario.save()
-
-            return redirect('/root?e=mi')
-
-    administrador = Root.objects.filter(usuario__usuario=request.user)[0]
-    nombre = administrador.usuario.nombre
-    apellido =  administrador.usuario.apellido
-    dni =  administrador.usuario.dni
-    direccion =  administrador.usuario.direccion
-    telefono =  administrador.usuario.telefono
-    email =  administrador.usuario.email
-    ciudad =  administrador.usuario.ciudad
-    genero =  administrador.usuario.genero
-    pais =  administrador.usuario.pais
-    password =  administrador.usuario.usuario.password
     template = loader.get_template('root/modificar_perfil.html')
     ctx = {
         'error': error,
         'exito': exito,
-        "nombre": nombre,
-        "apellido": apellido,
-        "dni": dni,
-        "direccion": direccion,
-        "telefono": telefono,
-        "email": email,
-        "ciudad": ciudad,
-        "genero": genero,
-        "pais": pais,
-        "password": password,
     }
     return HttpResponse(template.render(ctx, request))
 

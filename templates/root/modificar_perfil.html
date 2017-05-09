@@ -49,7 +49,7 @@
                         <div class="col-sm-6 col-sm-offset-3 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
-                        			<h3>Modifica tu perfil</h3>
+                        			<h3>Cambiar la contraseña</h3>
                         		</div>
                         		<div class="form-top-right">
                         			<i class="fa fa-key"></i>
@@ -59,65 +59,23 @@
                           <form method="post" enctype="multipart/form-data">{% csrf_token %}
                             <div class="form-bottom">
                               <div>
-                                <P ALIGN=center>Nombre</P>
+                                <P ALIGN=center>Contraseña anterior</P>
                                 <div class="form-group">
-                                    <input type="text" name="nombre" value="{{nombre}}" id="nombre" placeholder="Ingrese su nombre" class="form-user form-control">
+                                  <input type="password" name="old_password" id="old_password" placeholder="Ingrese su contraseña anterior" class="form-user form-control" required>
                                 </div>
                               </div>
 
                               <div>
-                                <P ALIGN=center>Apellidos</P>
+                                <P ALIGN=center>Contraseña nueva</P>
                                 <div class="form-group">
-                                    <input type="text" name="apellido" value="{{apellido}}" id="apellido" placeholder="Ingrese sus apellidos" class="form-user form-control">
+                                    <input type="password" name="new_password" id="new_password" placeholder="Ingrese su nueva contraseña" class="form-user form-control" required>
                                 </div>
                               </div>
 
                               <div>
-                                <P ALIGN=center>DNI</P>
+                                <P ALIGN=center>Repita la contraseña nueva</P>
                                 <div class="form-group">
-                                    <input type="text" name="dni" value="{{dni}}" id="dni" placeholder="Ingrese su dni" class="form-user form-control">
-                                </div>
-                              </div>
-
-                              <div>
-                                <P ALIGN=center>Género</P>
-                                <div class="form-group">
-                                    <input type="text" name="genero" value="{{genero}}" id="genero" placeholder="Ingrese su género (hombre, mujer)" class="form-user form-control">
-                                </div>
-                              </div>
-
-                              <div>
-                                <P ALIGN=center>Dirección</P>
-                                <div class="form-group">
-                                    <input type="text" name="direccion" value="{{direccion}}" id="direccion" placeholder="Ingrese su dirección" class="form-user form-control">
-                                </div>
-                              </div>
-
-                              <div>
-                                <P ALIGN=center>Teléfono</P>
-                                <div class="form-group">
-                                    <input type="text" name="telefono" value="{{telefono}}" id="telefono" placeholder="Ingrese su telefono" class="form-user form-control">
-                                </div>
-                              </div>
-
-                              <div>
-                                <P ALIGN=center>Email</P>
-                                <div class="form-group">
-                                    <input type="text" name="email" value="{{email}}" id="email" placeholder="Ingrese su correo electrónico" class="form-user form-control">
-                                </div>
-                              </div>
-
-                              <div>
-                                <P ALIGN=center>Ciudad</P>
-                                <div class="form-group">
-                                    <input type="text" name="ciudad" value="{{ciudad}}" id="ciudad" placeholder="Ingrese su ciudad" class="form-user form-control">
-                                </div>
-                              </div>
-
-                              <div>
-                                <P ALIGN=center>País</P>
-                                <div class="form-group">
-                                    <input type="text" name="pais" value="{{pais}}" id="pais" placeholder="Ingrese su país" class="form-user form-control">
+                                    <input type="password" name="new_password_2" id="new_password_2" placeholder="Repita la nueva contraseña" class="form-user form-control" required>
                                 </div>
                               </div>
                             </div>

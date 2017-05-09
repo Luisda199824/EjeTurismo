@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'administrador',
+    'emailApp',
     'iniciarSesion',
     'iniciarSesionRoot',
     'modelsAdmin',
