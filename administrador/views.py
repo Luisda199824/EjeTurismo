@@ -170,3 +170,16 @@ def removeSolicitudAdmin(request, id_solicitud):
         'mensaje': mensaje,
     }
     return HttpResponse(template.render(ctx, request))
+
+def newNotice(request):
+    if not request.user.is_authenticated():
+        logout(request)
+        return redirect('/')
+
+    administrador = Administrador.objects.filter(usuario__usuario=request.user)[0]
+
+    template = loader.get_template('administrador/new_notice.html')
+    ctx = {
+        "nombre": administrador.usuario.nombre.title(),
+    }
+    return HttpResponse(template.render(ctx, request))

@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'iniciarSesion',
     'iniciarSesionRoot',
     'modelsAdmin',
+    'noticias',
     'registroUsuarios',
     'root',
     'suscriptor',
@@ -112,6 +113,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
 )
+
+# Media Files (Jpg, png)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/media'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
