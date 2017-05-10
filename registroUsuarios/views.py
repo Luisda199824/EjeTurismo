@@ -53,10 +53,11 @@ def registerUsuario(request):
                 if len(User.objects.filter(username=email)) > 0:
                     error = (True, "El correo ya ha sido usado")
                 else:
-                    user = User(username=email, password=password)
+                    user = User(username=email.lower(), password=password)
                     user.save()
-                    print(password, user.password)
 
+                    user.set_password(password)
+                    user.save()
                     from datetime import datetime
 
                     usuario = Usuario(

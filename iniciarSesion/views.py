@@ -13,21 +13,17 @@ def iniciarSesion(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-
-        usuario = User.objects.filter(username=username)
+        usuario = User.objects.filter(username=username.lower())
         if len(usuario) == 0:
             mensaje = "El usuario no fue encontrado"
             error = (True, mensaje)
         else:
-            usuario = usuario[0]
-            usuario = authenticate(username=username, password=password)
+            usuario = authenticate(username=username.lower(), password=password)
             if usuario is not None:
-                suscriptores = Suscriptor.objects.filter(usuario__usuario=usuario)
-                administradores = Administrador.objects.filter(usuario__usuario=usuario)
-
                 if "btn_usuario" in request.POST:
+                    suscriptores = Suscriptor.objects.filter(usuario__usuario=usuario)
                     if len(suscriptores) == 0:
-                        error = (True, "No hay cuenta asociada")
+                        error = (True, "No se encuentra la cuenta asociada")
                     else:
                         if suscriptores[0].estadoCuenta:
                             login(request, usuario)
@@ -36,8 +32,9 @@ def iniciarSesion(request):
                             error = (True, "Su cuenta no ha sido activada")
 
                 if "btn_administrador" in request.POST:
+                    administradores = Administrador.objects.filter(usuario__usuario=usuario)
                     if len(administradores) == 0:
-                        error = (True, "No hay cuenta asociada")
+                        error = (True, "No se encuentra la cuenta asociada")
                     else:
                         if administradores[0].estadoCuenta:
                             login(request, usuario)
