@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djcelery',
     'administrador',
     'emailApp',
     'iniciarSesion',
@@ -119,3 +120,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'Luisda199824@gmail.com'
 EMAIL_HOST_PASSWORD = '@Luisdavid2016#'
+
+# Celery settings
+BROKER_URL = "amqp://guest:guest@localhost//"
+CELERY_RESULT_BACKEND = "djcelery.backends.cache:CacheBackend"

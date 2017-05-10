@@ -27,9 +27,9 @@ def resetPassword(request):
                 hash = generarHash()
                 pr = PasswordRestaure(user=users[0], hash=hash)
                 pr.save()
-                enviarCorreoRecuperarPassword(pr.id)
+                enviarCorreoRecuperarPassword.delay(pr.id)
 
-                exito = (True, "Correo enviado correctamente")
+                exito = (True, "Tu correo será enviado prontamente")
 
     template = loader.get_template('recuperarPassword/index.html')
     ctx = {

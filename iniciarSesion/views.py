@@ -20,7 +20,8 @@ def iniciarSesion(request):
             error = (True, mensaje)
         else:
             usuario = usuario[0]
-            if usuario.password == password:
+            usuario = authenticate(username=username, password=password)
+            if usuario is not None:
                 suscriptores = Suscriptor.objects.filter(usuario__usuario=usuario)
                 administradores = Administrador.objects.filter(usuario__usuario=usuario)
 

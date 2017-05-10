@@ -5,6 +5,9 @@ from django.template import loader
 from emailApp.models import PasswordRestaure
 from modelsAdmin.models import Usuario
 
+from celery import shared_task
+
+@shared_task
 def enviarCorreoRecuperarPassword(pr_id):
     pr = PasswordRestaure.objects.filter(id=pr_id)
     pr = pr[0]
