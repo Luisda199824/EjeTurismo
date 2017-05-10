@@ -37,20 +37,54 @@
 
     <!-- Page Content -->
     <div class="container">
+      {% if exito.0 %}
+        <div class="alert alert-success">{{exito.1}}</div>
+      {% endif %}
 
         <div class="row">
           <div class="col-md-9">
-            {% for noticia in noticias %}
-            <div class="thumbnail">
-                <img class="img-responsive" src="{{noticia.imagen.url}}" alt="">
-                <div class="caption-full">
-                    <h4><a href="#">{{ noticia.titulo }}</a>
-                    </h4>
-                    <p>{{ noticia.descripcion }}</p>
+            <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Form Design</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br>
+                    <form class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="titulo">Título de la noticia <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" name="titulo" id="titulo" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contenido">Contenido de la noticia <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="contenido" name="contenido" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="imagen">Imagen de fondo<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input name="imagen" type="file">
+                        </div>
+                      </div>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <a href="/administrador" class="btn btn-primary" type="button">Cancelar</a>
+			                    <button class="btn btn-primary" type="reset">Limpiar todos los campos</button>
+                          <button type="submit" class="btn btn-success">Guardar</button>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
                 </div>
-            </div>
-            {% endfor %}
-            </div>
+          </div>
         </div>
     </div>
     <!-- /.container -->

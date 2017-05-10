@@ -6,6 +6,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 
 from modelsAdmin.models import Usuario, Administrador, Suscriptor, ListaSolicitudesSuscriptor
+from noticias.models import Noticia
 
 def indexAdmin(request):
     try:
@@ -172,14 +173,27 @@ def removeSolicitudAdmin(request, id_solicitud):
     return HttpResponse(template.render(ctx, request))
 
 def newNotice(request):
+    exito = (False, "")
     if not request.user.is_authenticated():
         logout(request)
         return redirect('/')
 
     administrador = Administrador.objects.filter(usuario__usuario=request.user)[0]
 
+    if request.method == "POST":
+        form = request.POST
+        titulo = form.get("titulo")
+        descripcion = form.get("contenido")
+        imagen = request.FILES.get("imagen")
+
+        noticia = Noticia(titulo=titulo, descripcion=descripcion, imagen=imagen, administrador=administrador)
+        noticia.save()
+
+        exito = (True, "La noticia fue creada correctamente")
+
     template = loader.get_template('administrador/new_notice.html')
     ctx = {
         "nombre": administrador.usuario.nombre.title(),
+        "exito": exito,
     }
     return HttpResponse(template.render(ctx, request))

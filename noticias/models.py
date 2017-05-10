@@ -5,7 +5,7 @@ from modelsAdmin.models import Administrador
 class Noticia(models.Model):
     titulo = models.CharField(max_length=255)
     descripcion = models.CharField(max_length=25550)
-    imagen = models.ImageField(upload_to="noticias")
+    imagen = models.ImageField(upload_to="noticias/")
     administrador = models.ForeignKey(Administrador)
 
     class Meta:
