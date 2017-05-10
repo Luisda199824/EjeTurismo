@@ -30,7 +30,7 @@ def resetPassword(request):
                 enviarCorreoRecuperarPassword(pr.id)
 
                 exito = (True, "Correo enviado correctamente")
-                
+
     template = loader.get_template('recuperarPassword/index.html')
     ctx = {
         "error": error,
@@ -39,8 +39,36 @@ def resetPassword(request):
     return HttpResponse(template.render(ctx, request))
 
 def changePasswordWithHash(request, hash):
-    template = loader.get_template('recuperarPassword/index.html')
-    ctx = {}
+    error = (False, "")
+    exito = (False, "")
+    usuario = None
+    pr = PasswordRestaure.objects.filter(hash=hash)
+    if len(pr) != 0:
+        pr = pr[0]
+        usuario = pr.user
+    else:
+        error = (True, "Petición no encontrada")
+
+    if request.method == "POST" and not error[0]:
+        form = request.POST
+        new_password = form.get("new_password")
+        new_password_2 = form.get("new_password_2")
+
+        if new_password is not None and new_password_2 is not None:
+            if new_password == new_password_2:
+                usuario.set_password(new_password)
+                usuario.save()
+                pr.delete()
+                exito = (True, "Contraseña cambiada correctamente")
+        else:
+            error = (True, "Problemas al cambiar la contraseña")
+
+    template = loader.get_template('recuperarPassword/change.html')
+    ctx = {
+        'error': error,
+        'usuario': usuario,
+        'exito': exito,
+    }
     return HttpResponse(template.render(ctx, request))
 
 def generarHash():
