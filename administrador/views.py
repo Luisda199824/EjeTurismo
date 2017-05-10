@@ -197,3 +197,29 @@ def newNotice(request):
         "exito": exito,
     }
     return HttpResponse(template.render(ctx, request))
+
+def deactivateAdministrador(request):
+    if not request.user.is_authenticated():
+        logout(request)
+        return redirect('/')
+
+    administrador = Administrador.objects.filter(usuario__usuario=request.user)[0]
+
+    if request.method=="POST" and "eliminar" in request.POST:
+        administrador.estadoCuenta = False
+        administrador.save()
+        return redirect('/cuentaEliminada')
+
+    suscriptores = Suscriptor.objects.filter(administrador=administrador)
+    eliminar = True
+    print(suscriptores)
+    for suscriptor in suscriptores:
+        print(eliminar, suscriptor.estadoCuenta)
+        if suscriptor.estadoCuenta:
+            eliminar = False
+    print(eliminar)
+    template = loader.get_template('administrador/desactivar_cuenta.html')
+    ctx = {
+        'eliminar': eliminar,
+    }
+    return HttpResponse(template.render(ctx, request))

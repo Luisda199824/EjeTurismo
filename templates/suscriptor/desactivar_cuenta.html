@@ -38,22 +38,16 @@
               <div class="row">
                   <div class="col-sm-8 col-sm-offset-2 text">
                     <h1><strong>Eje</strong> Turismo</h1>
+                    <h1><strong>Desactiva tu cuenta</strong></h1>
                   </div>
               </div>
               <div class="row">
-                  <a class="btn btn-primary btn-block" style="margin-top:15px; font-size:25px;" href="/administrador/new/notice">Crear nueva noticia</a>
+                  <form method="POST">{% csrf_token %}
+                    <button type="submit" class="btn btn-block btn-danger" name="eliminar" style="background:red; margin-top:15px; font-size:25px;" href="/administrador/solicitudes">Desactivar</button>
+                  </form>
               </div>
               <div class="row">
-                  <a class="btn btn-primary btn-block" style="margin-top:15px; font-size:25px;" href="/administrador/solicitudes">Lista de solicitudes</a>
-              </div>
-              <div class="row">
-                  <a class="btn btn-primary btn-block" style="margin-top:15px; font-size:25px;" href="/administrador/modificar/perfil">Modificar perfil</a>
-              </div>
-              <div class="row">
-                  <a class="btn btn-primary btn-block" style="margin-top:15px; font-size:25px;" href="/">Cerrar sesión</a>
-              </div>
-              <div class="row">
-                  <a class="btn btn-primary btn-block" style="background:red; margin-top:15px; font-size:25px;" href="/administrador/deactivate">Desactivar Cuenta</a>
+                  <a class="btn btn-primary btn-block" style="margin-top:15px; font-size:25px;" href="/suscriptor">Volver</a>
               </div>
             </div>
           </div>

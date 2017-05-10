@@ -23,3 +23,21 @@ def indexSuscriptor(request):
         'noticias': noticias,
     }
     return HttpResponse(template.render(ctx, request))
+
+def deactivateSuscriptor(request):
+    if not request.user.is_authenticated():
+        logout(request)
+        return redirect('/')
+
+    usuario = Suscriptor.objects.filter(usuario__usuario=request.user)[0]
+
+    if request.method=="POST" and "eliminar" in request.POST:
+        usuario.estadoCuenta = False
+        usuario.save()
+        return redirect('/cuentaEliminada')
+
+    template = loader.get_template('suscriptor/desactivar_cuenta.html')
+    ctx = {
+        'nombre': usuario.usuario.nombre.title(),
+    }
+    return HttpResponse(template.render(ctx, request))

@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'djcelery',
     'administrador',
+    'cuentaEliminada',
     'emailApp',
     'iniciarSesion',
     'iniciarSesionRoot',
@@ -113,7 +114,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
 )
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Media Files (Jpg, png)
 MEDIA_URL = '/media/'

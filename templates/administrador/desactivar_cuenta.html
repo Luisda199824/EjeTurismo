@@ -27,33 +27,29 @@
     </head>
 
     <body>
-
-      {% if exito.0 %}
-        <div class="alert alert-success">{{exito.1}}</div>
-      {% endif %}
-        <!-- Top content -->
+      <!-- Top content -->
         <div class="top-content">
           <div class="inner-bg">
             <div class="container">
               <div class="row">
                   <div class="col-sm-8 col-sm-offset-2 text">
                     <h1><strong>Eje</strong> Turismo</h1>
+                    <h1><strong>Desactiva tu cuenta</strong></h1>
                   </div>
               </div>
+              {% if eliminar %}
               <div class="row">
-                  <a class="btn btn-primary btn-block" style="margin-top:15px; font-size:25px;" href="/administrador/new/notice">Crear nueva noticia</a>
+                  <form method="POST">{% csrf_token %}
+                    <button type="submit" class="btn btn-block btn-danger" name="eliminar" style="background:red; margin-top:15px; font-size:25px;" href="/administrador/solicitudes">Desactivar</button>
+                  </form>
               </div>
+              {% else %}
+              <div class="alert alert-danger">No puedes eliminar tu cuenta, aún tienes usuarios suscriptores activos</div>
+              {% endif %}
+
+
               <div class="row">
-                  <a class="btn btn-primary btn-block" style="margin-top:15px; font-size:25px;" href="/administrador/solicitudes">Lista de solicitudes</a>
-              </div>
-              <div class="row">
-                  <a class="btn btn-primary btn-block" style="margin-top:15px; font-size:25px;" href="/administrador/modificar/perfil">Modificar perfil</a>
-              </div>
-              <div class="row">
-                  <a class="btn btn-primary btn-block" style="margin-top:15px; font-size:25px;" href="/">Cerrar sesión</a>
-              </div>
-              <div class="row">
-                  <a class="btn btn-primary btn-block" style="background:red; margin-top:15px; font-size:25px;" href="/administrador/deactivate">Desactivar Cuenta</a>
+                  <a class="btn btn-primary btn-block" style="margin-top:15px; font-size:25px;" href="/suscriptor">Volver</a>
               </div>
             </div>
           </div>
