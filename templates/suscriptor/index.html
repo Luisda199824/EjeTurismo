@@ -42,7 +42,7 @@
           <div class="col-md-9">
             {% for noticia in noticias %}
             <div class="thumbnail">
-                <img class="img-responsive" src="{{noticia.imagen.url}}" alt="">
+                <img class="img-responsive" src="/media/{{ noticia.imagen }}" alt="" width="800" height="300">
                 <div class="caption-full">
                     <h4><a href="#">{{ noticia.titulo }}</a>
                     </h4>
