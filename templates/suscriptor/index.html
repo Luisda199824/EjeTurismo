@@ -26,10 +26,20 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">¡Hola {{ nombre }}! Estas son las noticias</a>
+                
             </div>
-            <div style="allign:right;">
-              <a style="margin-left:40%;" class="navbar-brand" href="/">Cerrar sesión</a>
+            <div style="allign:right; margin-top:10px;">
+                <div class="dropdown">
+                  <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-menu-hamburger"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><div>¡Hola {{ nombre }}! Estas son las noticias!</div></li>
+                    <li class="divider"></li>
+                    <li><a class="navbar-brand" style="color:black; font-size:15px;" href="/">Cerrar sesión</a></li>
+                    <li><a class="navbar-brand" style="color:red; font-size:15px;" href="/suscriptor/deactivate">Desactivar cuenta</a></li>
+                  </ul>
+                </div>
             </div>
         </div>
         <!-- /.container -->
