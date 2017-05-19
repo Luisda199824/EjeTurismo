@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('iniciarSesion.urls', namespace="Iniciar sesion")),
+    url(r'^login/', include('iniciarSesion.urls', namespace="Iniciar sesion")),
     url(r'^', include('iniciarSesionRoot.urls', namespace="Iniciar sesion Root")),
     url(r'^', include('cuentaEliminada.urls', namespace="cuentaEliminada")),
     url(r'^', include('landing.urls', namespace="landing page")),

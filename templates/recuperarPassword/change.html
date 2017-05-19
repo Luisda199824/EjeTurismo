@@ -30,6 +30,11 @@
 
       {% if error.0 %}
         <div class="alert alert-info">{{error.1}}</div>
+        <script type="text/javascript">
+          setTimeout(function(){
+            window.location ="/";
+          },1000);
+        </script>
       {% elif exito.0 %}
         <div class="alert alert-info">{{exito.1}}</div>
         <div class="row">
