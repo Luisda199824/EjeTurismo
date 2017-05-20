@@ -345,7 +345,6 @@ def deleteNoticiaAdmin(request, id_noticia):
         'type_user': 'administrador',
         'exito': exito,
         'error': error,
-        'intereses': Interes.objects.all(),
         'noticia': noticia
     }
     return HttpResponse(template.render(ctx, request))
