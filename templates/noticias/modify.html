@@ -31,6 +31,20 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Interes asociado</label>
+                                        <select class="form-control" id="interes" name="interes" required>
+                                            <option disabled selected>Seleccione un interes</option>
+                                            {% for interes in intereses %}
+                                            <option value="{{ interes.id }}">{{ interes.nombre }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="imagen">Imagen de la noticia</label>
                                 <input type="file" class="form-control-file" id="imagen" name="imagen" aria-describedby="fileHelp" required>

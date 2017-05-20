@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 
-from modelsAdmin.models import Usuario, Administrador, Suscriptor, ListaSolicitudesSuscriptor
+from modelsAdmin.models import Usuario, Administrador, Suscriptor, ListaSolicitudesSuscriptor, Interes
 from noticias.models import Noticia
 
 def indexAdmin(request):
@@ -185,8 +185,10 @@ def newNotice(request):
         titulo = form.get("titulo")
         descripcion = form.get("contenido")
         imagen = request.FILES.get("imagen")
+        id_interes = form.get("interes")
+        interes = Interes.objects.filter(id=id_interes)[0]
 
-        noticia = Noticia(titulo=titulo, descripcion=descripcion, imagen=imagen, administrador=administrador)
+        noticia = Noticia(titulo=titulo, descripcion=descripcion, imagen=imagen, administrador=administrador, interes=interes)
         noticia.save()
 
         exito = (True, "La noticia fue creada correctamente")
@@ -195,6 +197,7 @@ def newNotice(request):
     ctx = {
         "nombre": administrador.usuario.nombre.title(),
         "exito": exito,
+        "intereses": Interes.objects.all(),
     }
     return HttpResponse(template.render(ctx, request))
 
@@ -286,11 +289,14 @@ def modifyNoticiaAdmin(request, id_noticia):
         titulo = form.get("titulo")
         descripcion = form.get("descripcion")
         imagen = request.FILES.get("imagen")
+        id_interes = form.get("interes")
+        interes = Interes.objects.filter(id=id_interes)[0]
 
         noticia.titulo=titulo
         noticia.descripcion=descripcion
         noticia.administrador=administrador
         noticia.archivo=imagen
+        noticia.interes = interes
         
         noticia.save()
         exito = (True, "La noticia ha sido modificada correctamente")
@@ -302,6 +308,7 @@ def modifyNoticiaAdmin(request, id_noticia):
         'type_user': 'administrador',
         'exito': exito,
         'error': error,
+        'intereses': Interes.objects.all(),
         'noticia': noticia,
     }
     return HttpResponse(template.render(ctx, request))
