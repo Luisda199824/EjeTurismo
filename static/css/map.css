@@ -1,0 +1,36 @@
+#header{
+	padding-bottom: 20px;
+}
+
+nav{
+	background-color: #004d40;
+}
+
+.brand-logo{
+	padding-left: 10px;
+}
+
+#header h4{
+	margin-top: 0;
+	padding-top: 20px;
+	font-weight: bold;
+}
+
+#map {
+  height: 80%;
+  width: 100%;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.flotante {
+	font-size: 60px !important;
+	border-radius: 20px;
+    display:scroll;
+    position:fixed;
+    bottom: 80px;
+    right:20px;
+}

@@ -1,0 +1,21 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="header">
+                {% if error.0 %}
+                	<h4 class="title">Error</h4>
+                	<p class="category">{{ error.1 }}</p>
+                {% elif exito.0 %}
+                	<h4 class="title">Marcador eliminado</h4>
+                	<p class="category">{{ exito.1 }}</p>
+                {% endif %}
+            </div>
+            </div>
+            <a href="/maps">Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,143 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+{% load staticfiles %}
+<div id="map" style="height:470px; padding:0px; margin:0px;"></div>	
+
+<div id="modal" class="modal fade" id="EnSureModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Ingresa los datos del nuevo modal</h4>
+            </div>
+            <div class="modal-body">
+				<form method="POST" id="form">{% csrf_token %}
+				<div class="row">
+		            <div class="col-md-12">
+		                <div class="form-group">
+		                    <label>Título</label>
+		                    <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Coloca un título">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row">
+		            <div class="col-md-12">
+		                <div class="form-group">
+		                    <label>Contenido del marcador</label>
+		                    <textarea rows="5" class="form-control" name="contenido" id="contenido" placeholder="Coloca aquí la descripción"></textarea>
+		                </div>
+		            </div>
+		        </div>
+                <input type="text" name="latitud" id="latitud" hidden>
+				<input type="text" name="longitud" id="longitud" hidden>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <a id="cancelar" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                <a id="enviar" class="btn btn-default" data-dismiss="modal">Guardar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button id="new_marker" class="flotante" data-toggle="modal"><i class="pe-7s-map-marker"></i></button>
+
+{% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript">
+	$("#cancelar").click(function () {
+		location.reload();
+	});
+	$("#enviar").click(function () {
+		$("#form").submit();
+	});
+</script>
+
+<script>
+	{% if marcador == None  %}
+	lat = 4.794556;
+	lng = -75.689130;
+	{% else %}
+	lng = {{ marcador.longitud }};
+	lat = {{ marcador.latitud }};
+	{% endif %}
+	var map;
+	function initMap() {
+		map = new google.maps.Map(document.getElementById('map'), {
+		  center: {lat: lat, lng: lng},
+		  zoom: 14
+		});
+
+		{% if marcador != None %}
+		marker = new google.maps.Marker({
+			position: {lat: lat, lng: lng},
+			map: map,
+			draggable:true,
+			icon: "https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png",
+    		animation: google.maps.Animation.DROP,
+		});
+		{% else %}
+		$("#new_marker").attr("disabled", "true");
+		{% endif %}
+	}
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXWwrVMSsZUFiyFOJQZMsk1nT2jl7bBXI&callback=initMap">
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#new_marker").empty();
+		$("#new_marker").append('<i class="pe-7s-angle-right"></i>');
+	});
+
+	paso = true;
+	$("#new_marker").click(function () {
+		pos = {lat:lat, lng:lng};
+		if (!paso) {
+			$("#new_marker").empty();
+			$("#new_marker").append('<i class="pe-7s-angle-right"></i>');
+			paso = true;
+		} else {
+			latitud = marker.getPosition().lat();
+			longitud = marker.getPosition().lng();
+			$("#latitud").val(latitud);
+			$("#longitud").val(longitud);
+
+			titulo = "{{ marcador.titulo }}";
+			contenido = "{{ marcador.descripcion }}";
+			$("#titulo").val(titulo);
+			$("#contenido").val(contenido);
+			$("#modal").modal('show');
+		}
+	});
+
+</script>
+
+<script type="text/javascript">
+	{% if error.0 or exito.0 %}
+	$(document).ready(function(){
+		$.notify({
+        	icon: 'pe-7s-map-marker',
+        	{% if exito.0 %}
+        	message: "{{exito.1}}, serás redirigido al mapa"
+        	{% elif error.0 %}
+        	message: "{{error.1}}, serás redirigido al mapa"
+        	{% endif %}
+        },{
+        	{% if exito.0 %}
+        	type: 'success',
+        	{% elif error.0 %}
+        	type: 'danger',
+        	{% endif %}
+            timer: 4000
+        });
+        setTimeout(function(){
+			window.location ="/maps";
+		},2000);
+	});
+	{% endif %}
+</script>
+{% endblock scripts %}

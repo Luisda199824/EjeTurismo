@@ -1,0 +1,36 @@
+{% extends "dashboard.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Noticias</h4>
+            </div>
+            <div class="content">
+            {% for noticia in noticias %}
+        	<div class="card">
+	            <div class="header">
+	                <h4 class="title">{{ noticia.titulo }}</h4>
+	                <p class="category">{{ noticia.descripcion }}</p>
+	            </div>
+	            <div class="content">
+	            <img src="{{noticia.imagen.url}}" width="100%">
+                {% if type_user == "administrador" %}
+                    <a class="btn btn-info btn-fill" style="margin-top:10px;" href="/administrador/noticias/modify/{{ noticia.id }}">Modificar</a>
+                    <a class="btn btn-danger btn-fill pull-right" style="margin-top:10px;" href="/administrador/noticias/delete/{{ noticia.id }}">Eliminar</a>
+                {% endif %}
+	            </div>
+	        </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if type_user == "administrador" %}
+<a href="/administrador/new/notice/"><button id="new_marker" class="flotante" style="right:30px;"><i class="pe-7s-pen"></i></button></a>
+{% endif %}
+{% endblock content %}

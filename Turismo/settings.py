@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'iniciarSesion',
     'iniciarSesionRoot',
     'landing',
+    'logout',
+    'maps',
     'modelsAdmin',
     'noticias',
     'registroUsuarios',

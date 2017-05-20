@@ -223,3 +223,129 @@ def deactivateAdministrador(request):
         'eliminar': eliminar,
     }
     return HttpResponse(template.render(ctx, request))
+
+def noticiasAdministrador(request):
+    if request.user is None or not request.user.is_authenticated():
+        return redirect('/')
+
+    user = request.user
+    
+    usuario = Usuario.objects.filter(usuario=user)
+    if len(usuario) == 0:
+        return redirect('/')
+    else:
+        usuario = usuario[0]
+
+    administrador = Administrador.objects.filter(usuario=usuario)
+    if len(administrador) == 0:
+        return redirect('/')
+    else:
+        administrador = administrador[0]
+    
+    noticias = Noticia.objects.all()[::-1]
+
+    template = loader.get_template('noticias/index.html')
+    ctx = {
+        'id_usuario': usuario.id,    
+        'nombre': administrador.usuario.nombre,
+        'type_user': 'administrador',
+        'noticias': noticias,
+    }
+    return HttpResponse(template.render(ctx, request))
+
+def modifyNoticiaAdmin(request, id_noticia):
+    if request.user is None or not request.user.is_authenticated():
+        return redirect('/')
+
+    user = request.user
+    
+    usuario = Usuario.objects.filter(usuario=user)
+    if len(usuario) == 0:
+        return redirect('/')
+    else:
+        usuario = usuario[0]
+
+    administrador = Administrador.objects.filter(usuario=usuario)
+    if len(administrador) == 0:
+        return redirect('/')
+    else:
+        administrador = administrador[0]
+    
+    exito = (False, "")
+    error = (False, "")
+
+    noticia = Noticia.objects.filter(id=id_noticia)
+
+    if len(noticia)==0:
+        error=(True, "No se encontró la noticia")
+    else:
+        noticia = noticia[0]
+
+    if request.method=="POST":
+        form = request.POST
+        titulo = form.get("titulo")
+        descripcion = form.get("descripcion")
+        imagen = request.FILES.get("imagen")
+
+        noticia.titulo=titulo
+        noticia.descripcion=descripcion
+        noticia.administrador=administrador
+        noticia.archivo=imagen
+        
+        noticia.save()
+        exito = (True, "La noticia ha sido modificada correctamente")
+
+    template = loader.get_template('noticias/modify.html')
+    ctx = {
+        'id_usuario': usuario.id,
+        'nombre': administrador.usuario.nombre,
+        'type_user': 'administrador',
+        'exito': exito,
+        'error': error,
+        'noticia': noticia,
+    }
+    return HttpResponse(template.render(ctx, request))
+
+def deleteNoticiaAdmin(request, id_noticia):
+    if request.user is None or not request.user.is_authenticated():
+        return redirect('/')
+
+    user = request.user
+    
+    usuario = Usuario.objects.filter(usuario=user)
+    if len(usuario) == 0:
+        return redirect('/')
+    else:
+        usuario = usuario[0]
+
+    administrador = Administrador.objects.filter(usuario=usuario)
+    if len(administrador) == 0:
+        return redirect('/')
+    else:
+        administrador = administrador[0]
+    
+    exito = (False, "")
+    error = (False, "")
+
+    noticia = Noticia.objects.filter(id=id_noticia)
+
+    if len(noticia)==0:
+        error=(True, "No se encontró la noticia")
+    else:
+        noticia = noticia[0]
+
+    if request.method=="POST":
+        noticia.delete()
+        exito = (True, "La noticia ha sido eliminada correctamente")
+
+    template = loader.get_template('noticias/delete.html')
+    ctx = {
+        'id_usuario': usuario.id,
+        'nombre': administrador.usuario.nombre,
+        'type_user': 'administrador',
+        'exito': exito,
+        'error': error,
+        'intereses': Interes.objects.all(),
+        'noticia': noticia
+    }
+    return HttpResponse(template.render(ctx, request))

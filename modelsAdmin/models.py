@@ -118,3 +118,19 @@ class ListaInteresSuscriptor(models.Model):
 
     def __unicode__(self):
         return "Interes: %s Suscriptor: %s" % (self.interes.nombre, str(self.suscriptor.usuario))
+
+class Marcador(models.Model):
+    titulo = models.CharField(max_length=100)
+    descripcion = models.CharField(max_length=512)
+    usuario = models.ForeignKey(Usuario)
+    interes = models.ForeignKey(Interes, null=True)
+    latitud = models.CharField(max_length=128)
+    longitud = models.CharField(max_length=128)
+
+    class Meta:
+        verbose_name = 'Marcador'
+        verbose_name_plural = 'Marcadores'
+
+    def __str__(self):
+        return ""
+

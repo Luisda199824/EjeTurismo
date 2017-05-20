@@ -1,0 +1,92 @@
+{% extends "dashboard.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Modificar noticia</h4>
+                    </div>
+                    <div class="content">
+                        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Título</label>
+                                        <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Título de la noticia" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Contenido de la noticia</label>
+                                        <textarea rows="5" class="form-control" placeholder="Coloca aquí el contenido de la noticia" name="descripcion" id="descripcion"required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="imagen">Imagen de la noticia</label>
+                                <input type="file" class="form-control-file" id="imagen" name="imagen" aria-describedby="fileHelp" required>
+                                <small id="fileHelp" class="form-text text-muted">Coloca la imagen que aparecerá en la noticia</small>
+                            </div>
+
+                            <a class="btn btn-danger btn-fill pull-left" href="/administrador/noticias/">Cancelar</a>
+                            <button type="submit" id="btn_submit" class="btn btn-info btn-fill pull-right">Actualizar noticia</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    {% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript">
+    {% if error.0 or exito.0 %}
+    $(document).ready(function(){
+        $.notify({
+            icon: 'pe-7s-news-paper',
+            {% if exito.0 %}
+            message: "{{exito.1}}"
+            {% elif error.0 %}
+            message: "{{error.1}}"
+            {% endif %}
+        },{
+            {% if exito.0 %}
+            type: 'success',
+            {% elif error.0 %}
+            type: 'danger',
+            {% endif %}
+            timer: 4000
+        });
+        {% if error.0 %}
+        $("#titulo").attr("disabled", "true");
+        $("#descripcion").attr("disabled", "true");
+        $("#interes").attr("disabled", "true");
+        $("#imagen").attr("disabled", "true");
+        $("#btn_submit").attr("disabled", "true");
+        {% elif exito.0 %}
+        setTimeout(function(){
+            window.location ="/administrador/noticias";
+        },3000);
+        {% endif %}
+    });
+    {% else %}
+    $(document).ready(function(){
+        $("#titulo").val("{{ noticia.titulo }}");
+        $("#descripcion").val("{{ noticia.descripcion }}");
+        $("#interes").val("{{ noticia.interes.id }}");
+    });
+    {% endif %}
+</script>
+{% endblock scripts %}

@@ -20,27 +20,23 @@ def iniciarSesion(request):
         else:
             usuario = authenticate(username=username.lower(), password=password)
             if usuario is not None:
-                if "btn_usuario" in request.POST:
-                    suscriptores = Suscriptor.objects.filter(usuario__usuario=usuario)
-                    if len(suscriptores) == 0:
-                        error = (True, "No se encuentra la cuenta asociada")
+                user = Usuario.objects.filter(usuario=usuario)
+                suscriptores = Suscriptor.objects.filter(usuario__usuario=usuario)
+                administradores = Administrador.objects.filter(usuario__usuario=usuario)
+                if len(suscriptores) != 0:
+                    if suscriptores[0].estadoCuenta:
+                        login(request, usuario)
+                        return redirect('/suscriptor')
                     else:
-                        if suscriptores[0].estadoCuenta:
-                            login(request, usuario)
-                            return redirect('/suscriptor')
-                        else:
-                            error = (True, "Su cuenta no ha sido activada")
-
-                if "btn_administrador" in request.POST:
-                    administradores = Administrador.objects.filter(usuario__usuario=usuario)
-                    if len(administradores) == 0:
-                        error = (True, "No se encuentra la cuenta asociada")
+                        error = (True, "Su cuenta no ha sido activada")
+                elif len(administradores) != 0:
+                    if administradores[0].estadoCuenta:
+                        login(request, usuario)
+                        return redirect('/administrador')
                     else:
-                        if administradores[0].estadoCuenta:
-                            login(request, usuario)
-                            return redirect('/administrador')
-                        else:
-                            error = (True, "Su cuenta no ha sido activada")
+                        error = (True, "Su cuenta no ha sido activada")
+                else:
+                    error = (True, "La cuenta no tiene un perfil asociado")
             else:
                 mensaje = "Contraseña incorrecta"
                 error = (True, mensaje)
