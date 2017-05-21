@@ -25,3 +25,11 @@ class ListaSolicitudesAdministradorAdmin(admin.ModelAdmin):
 @admin.register(ListaSolicitudesSuscriptor)
 class ListaSolicitudesSuscriptorAdmin(admin.ModelAdmin):
     list_display = ['suscriptor', 'evaluada']
+
+@admin.register(Interes)
+class ListaSolicitudesSuscriptorAdmin(admin.ModelAdmin):
+    list_display = ['nombre']
+
+@admin.register(Municipio)
+class ListaSolicitudesSuscriptorAdmin(admin.ModelAdmin):
+    list_display = ['nombre']
