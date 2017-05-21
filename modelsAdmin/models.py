@@ -26,6 +26,16 @@ class Usuario(models.Model):
     def __unicode__(self):
         return self.nombre + " " + self.apellido
 
+class Municipio(models.Model):
+    nombre = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = 'Municipio'
+        verbose_name_plural = 'Municipios'
+
+    def __unicode__(self):
+        return self.nombre
+
 class Root(models.Model):
     usuario = models.ForeignKey(Usuario)
 
@@ -41,7 +51,7 @@ class Administrador(models.Model):
     root = models.ForeignKey(Root)
     usuario = models.ForeignKey(Usuario)
     estadoCuenta = models.BooleanField(default=True)
-    municipio = models.CharField(max_length=255)
+    municipio = models.ForeignKey(Municipio)
 
     class Meta:
         verbose_name = 'Administrador'

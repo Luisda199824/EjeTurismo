@@ -8,7 +8,7 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 @admin.register(Administrador)
 class AdministradorAdmin(admin.ModelAdmin):
-    list_display = ['usuario','estadoCuenta','municipio']
+    list_display = ['usuario','estadoCuenta',]
 
 @admin.register(Suscriptor)
 class SuscriptorAdmin(admin.ModelAdmin):
