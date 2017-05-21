@@ -8,6 +8,12 @@ from django.contrib.auth.models import User
 from modelsAdmin.models import Usuario, Root, Suscriptor, ListaSolicitudesAdministrador
 
 def indexRoot(request):
+    if request.user is None:
+        return redirect('/logout')
+    
+    if len(Root.objects.filter(usuario__usuario=request.user)) == 0:
+        return redirect('/logout')    
+        
     try:
         exito = request.GET.get("e")
         if exito == "mi":
