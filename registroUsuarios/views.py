@@ -109,6 +109,6 @@ def registerUsuario(request):
         'error': error,
         'exito': exito,
         'municipios': municipios,
-        'municipios': Municipio.objects.all(),
+        'municipios_all': Municipio.objects.all(),
     }
     return HttpResponse(template.render(ctx, request))
