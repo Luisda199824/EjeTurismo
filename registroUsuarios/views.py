@@ -78,7 +78,6 @@ def registerUsuario(request):
 
                     usuario.save()
 
-                    municipio = Municipio.objects.filter(id=municipio_admin)[0]
                     if "btn_usuario" in form:
                         administrador = Administrador.objects.filter(municipio=municipio)
                         if len(administrador) == 0:
@@ -91,6 +90,7 @@ def registerUsuario(request):
                             solicitud.save()
                             exito = (True, "Usuario suscriptor creado, solicitud enviada")
                     elif "btn_administrador" in form:
+                        municipio = Municipio.objects.filter(id=municipio_admin)[0]
                         administradores = Administrador.objects.filter(municipio=municipio)
                         if len(administradores) != 0:
                             error = (True, "Ya hay un administrador para el municipio de " + municipio.nombre)
