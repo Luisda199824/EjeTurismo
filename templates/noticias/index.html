@@ -17,7 +17,11 @@
 	                <p class="category">{{ noticia.descripcion }}</p>
 	            </div>
 	            <div class="content">
-	            <img src="{{noticia.imagen.url}}" width="100%">
+                {% if noticia.is_video %}
+    	            <iframe src="/media/{{ noticia.imagen }}" width="100%"></iframe>
+                {% else %}
+                    <img src="/media/{{ noticia.imagen }}" width="100%">
+                {% endif %}
                 {% if type_user == "administrador" %}
                     <a class="btn btn-info btn-fill" style="margin-top:10px;" href="/administrador/noticias/modify/{{ noticia.id }}">Modificar</a>
                     <a class="btn btn-danger btn-fill pull-right" style="margin-top:10px;" href="/administrador/noticias/delete/{{ noticia.id }}">Eliminar</a>

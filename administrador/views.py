@@ -247,6 +247,10 @@ def noticiasAdministrador(request):
     
     noticias = Noticia.objects.all()[::-1]
 
+    for noticia in noticias:
+        noticia.is_video = str(noticia.imagen).endswith(".mp4") or str(noticia.imagen).endswith(".avi")
+        noticia.imagen = str(noticia.imagen)
+
     template = loader.get_template('noticias/index.html')
     ctx = {
         'id_usuario': usuario.id,    
