@@ -111,6 +111,7 @@ def modificarPerfilAdmin(request):
         "pais": pais,
         "password": password,
         "municipio": municipio,
+        'municipios_all': Municipio.objects.all(),
     }
     return HttpResponse(template.render(ctx, request))
 
