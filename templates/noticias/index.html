@@ -22,6 +22,7 @@
                 {% else %}
                     <img src="/media/{{ noticia.imagen }}" width="100%">
                 {% endif %}
+                    <p><span class="badge badge-default">{{ noticia.administrador.municipio.nombre }}</span><span class="badge badge-default">{{ noticia.interes.nombre }}</span></p>
                 {% if type_user == "administrador" %}
                     <a class="btn btn-info btn-fill" style="margin-top:10px;" href="/administrador/noticias/modify/{{ noticia.id }}">Modificar</a>
                     <a class="btn btn-danger btn-fill pull-right" style="margin-top:10px;" href="/administrador/noticias/delete/{{ noticia.id }}">Eliminar</a>
