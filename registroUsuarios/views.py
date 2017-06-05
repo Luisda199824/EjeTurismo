@@ -78,6 +78,7 @@ def registerUsuario(request):
 
                     usuario.save()
 
+                    municipio = Municipio.objects.filter(id=municipio_admin)[0]
                     if "btn_usuario" in form:
                         administrador = Administrador.objects.filter(municipio=municipio)
                         if len(administrador) == 0:
