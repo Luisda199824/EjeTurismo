@@ -245,7 +245,9 @@ def noticiasAdministrador(request):
     else:
         administrador = administrador[0]
     
-    noticias = Noticia.objects.all()[::-1]
+    noticias = Noticia.objects.filter(administrador=administrador)
+    if len(noticias) != 0:
+        noticias = noticias[::-1]
 
     for noticia in noticias:
         noticia.is_video = str(noticia.imagen).endswith(".mp4") or str(noticia.imagen).endswith(".avi")
