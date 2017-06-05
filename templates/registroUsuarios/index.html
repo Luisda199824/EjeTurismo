@@ -135,7 +135,7 @@
                                   <p ALIGN=center>Municipio a administrar (Si será administrador):</p>
                                   <select class="form-control col-md-7 col-sm-7 " id="municipio_admin" name="municipio_admin" required>
                                     <option disabled selected>Seleccione un municipio</option>
-                                    {% for municipio in municipios %}
+                                    {% for municipio in municipios_all %}
                                     <option value="{{ municipio.id }}">{{ municipio.nombre }}</option>
                                     {% endfor %}
                                   </select>
