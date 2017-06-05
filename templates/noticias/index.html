@@ -18,7 +18,7 @@
 	            </div>
 	            <div class="content">
                 {% if noticia.is_video %}
-    	            <iframe src="/media/{{ noticia.imagen }}" width="100%"></iframe>
+    	            <iframe src="/media/{{ noticia.imagen }}" width="100%" height="400px"></iframe>
                 {% else %}
                     <img src="/media/{{ noticia.imagen }}" width="100%">
                 {% endif %}

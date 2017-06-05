@@ -249,9 +249,18 @@ def noticiasAdministrador(request):
     if len(noticias) != 0:
         noticias = noticias[::-1]
 
+    intereses = []
+    municipios = []
     for noticia in noticias:
         noticia.is_video = str(noticia.imagen).endswith(".mp4") or str(noticia.imagen).endswith(".avi")
         noticia.imagen = str(noticia.imagen)
+        interes = noticia.interes
+        if not interes in intereses:
+            intereses.append(interes)
+
+        municipio = noticia.administrador.municipio
+        if not municipio in municipios:
+            municipios.append(municipio)
 
     template = loader.get_template('noticias/index.html')
     ctx = {
@@ -259,6 +268,8 @@ def noticiasAdministrador(request):
         'nombre': administrador.usuario.nombre,
         'type_user': 'administrador',
         'noticias': noticias,
+        'intereses': intereses,
+        'municipios': municipios,
     }
     return HttpResponse(template.render(ctx, request))
 
