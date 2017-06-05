@@ -315,7 +315,7 @@ def modifyNoticiaAdmin(request, id_noticia):
         noticia.titulo=titulo
         noticia.descripcion=descripcion
         noticia.administrador=administrador
-        noticia.archivo=imagen
+        noticia.imagen=imagen
         noticia.interes = interes
         
         noticia.save()
