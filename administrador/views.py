@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 
-from modelsAdmin.models import Usuario, Administrador, Suscriptor, ListaSolicitudesSuscriptor, Interes
+from modelsAdmin.models import Usuario, Administrador, Suscriptor, ListaSolicitudesSuscriptor, Interes, Municipio
 from noticias.models import Noticia
 
 def indexAdmin(request):
