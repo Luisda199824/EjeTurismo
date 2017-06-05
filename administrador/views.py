@@ -65,6 +65,8 @@ def modificarPerfilAdmin(request):
 
                 from datetime import datetime
 
+                municipio = Municipio.objects.filter(id=municipio)[0]
+
                 usuario = administrador.usuario
                 usuario.dni=dni
                 usuario.nombre=nombre
